@@ -1,10 +1,93 @@
 
-.logo{
-    font-size: 1.5rem;
-    font-weight: 500;
+html {
+  height: 100%;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
-.logo-container{
-    display: flex;
-    align-items: center;
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.article {
+  width: 85%;
+  margin: 2% 7%;
+}
+
+.welcome-msg{
+  margin: 10% 0px;
+}
+
+.spinner{
+  margin-top: 20%;
+}
+
+.image-container {
+  width: 200px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; 
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.fixed-image {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.light-shadow {
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.dark-shadow {
+  box-shadow: 0 .1rem 0.1rem rgba(255, 255, 255, 0.371) !important;
+}
+.dark{
+  background-color: #0e0e0e !important;
+}
+
+
+/* ################## MEDIA QUERIES ################## */
+
+@media (max-width: 220px) {
+  body {
+    margin-top: 50%;
+  }
+  .main-article {
+    margin-left: 10%;
+    width: 80%;
+  }
+}
+
+@media (min-width: 221px) and (max-width: 369px) {
+  body {
+    margin-top: 25%;
+  }
+  .main-article {
+    margin-left: 10%;
+    width: 80%;
+  }
+}
+
+@media (min-width: 370px) and (max-width: 575px) {
+  body {
+    margin-top: 18%;
+  }
+  .main-article {
+    margin-left: 10%;
+    width: 80%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 766px) {
+  body {
+    margin-top: 12%;
+  }
 }
