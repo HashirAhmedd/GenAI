@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemeActions } from "../store/Theme";
 import { Moon, Sun } from "lucide-react";
 
-function Header() {
+function Header({setSearch}) {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme);
   const isDark = theme === "dark";
@@ -27,7 +27,7 @@ function Header() {
               } text-decoration-none`}
             >
               <img
-                src={`./src/assets/${isDark? 'LightGenAi.svg' : 'DarkGenAi.svg'}`}
+                src={`./${isDark? 'LightGenAi.svg' : 'DarkGenAi.svg'}`}
                 alt="Logo"
                 width="50"
                 height="52"
@@ -65,7 +65,7 @@ function Header() {
               </a>
             </li>
           </ul>
-          <div className="col-md-3 text-end d-flex gap-2 align-items-center">
+          <div className="col-md-4 text-end d-flex gap-2 align-items-center">
             <div className="d-flex gap-2 flex-grow-1">
               <input
                 type="search"
@@ -74,6 +74,7 @@ function Header() {
                 }`}
                 placeholder="Search Article..."
                 aria-label="Search"
+                onChange={(e)=> setSearch(e.target.value)}
               />
               <button
                 type="button"

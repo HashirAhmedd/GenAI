@@ -1,24 +1,29 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Header from "./components/Header";
-import ArticleList from "./components/ArticleList";
 import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
+import { createContext, useState } from "react";
 
+export const SearchContext = createContext()
 function App() {
+  const [search, setSearch] = useState("");
   const theme = useSelector((state) => state.theme);
   return (
     <>
+    <SearchContext.Provider value={{search, setSearch}}>
       <div
         className={`${
           theme === "dark" ? "bg-dark dark text-light" : "bg-light text-dark"
         }`}
         style={{ minHeight: "100vh" }}
       >
-        <Header />
-        <ArticleList />
+        <Header setSearch={setSearch} />
+        <Outlet search={search} />
         <Footer />
       </div>
+      </SearchContext.Provider>
     </>
   );
 }

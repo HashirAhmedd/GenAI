@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ArticleActions } from "../store/Article";
 import Article from "./Article";
 import MainArticle from "./MainArticle";
 import Spinner from "./Spinner";
 import WelcomeMessage from "./WelcomeMessage";
+import { SearchContext } from "../App";
 
 async function fetchArticles() {
   const response = await fetch("https://dummyjson.com/posts");
@@ -13,6 +14,7 @@ async function fetchArticles() {
 }
 
 function ArticleList() {
+  const {search} =  useContext(SearchContext)
   const [fetching, setFetching] = useState(false);
   const dispatch = useDispatch();
 
@@ -27,16 +29,21 @@ function ArticleList() {
   }, [dispatch]);
 
   const articles = useSelector((store) => store.article);
+    const filteredArticles = search
+    ? articles.filter((article) =>
+        article.title.toLowerCase().includes(search.toLowerCase())
+      )
+    : articles;
 
   return (
     <>
       {fetching && <Spinner />}
-      {!fetching && articles.length == 0 && <WelcomeMessage />}
+      {!fetching && filteredArticles.length == 0 && <WelcomeMessage />}
 
-      <MainArticle article={articles[0]} />
+      <MainArticle article={filteredArticles[0]} />
       <div className="row mb-2 article">
         
-        {articles.map((article, index) => {
+        {filteredArticles.map((article, index) => {
           if(index !== 0){
             return <Article key={index} article={article} />;
           }
