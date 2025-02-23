@@ -13,10 +13,16 @@ html {
   align-items: center;
 }
 
-.article {
+.article-row {
   width: 85%;
   margin: 2% 7%;
 }
+
+.article{
+  box-sizing: border-box;
+  max-height: 80vh;
+  min-height: 80vh;
+ }
 
 .welcome-msg{
   margin: 10% 0px;
@@ -27,6 +33,7 @@ html {
 }
 
 .image-container {
+  width: 100%;
   min-height: 250px;
   display: flex;
   align-items: center;
@@ -88,6 +95,8 @@ text-align: center;
     transform: translateX(0);
   }
 }
+
+
 
 
 /* ################## MEDIA QUERIES ################## */

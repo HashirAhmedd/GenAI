@@ -8,11 +8,10 @@ import WelcomeMessage from "./WelcomeMessage";
 import { SearchContext } from "../App";
 
 async function fetchArticles() {
-  const response = await fetch("https://dummyjson.com/posts");
-  // const response = await fetch("https://gen-ai-backend-nine.vercel.app/articles/");
-  const { posts: articlesData } = await response.json();
-  // console.log(articlesData)
-  return articlesData;
+  const response = await fetch("https://gen-ai-backend-nine.vercel.app/articles/");
+  const { articles } = await response.json();
+  // console.log(articles)
+  return articles;
 }
 
 function ArticleList() {
@@ -50,7 +49,7 @@ function ArticleList() {
       ) : (
         <>
           <MainArticle articles={filteredArticles.slice(0, 3)} />
-          <div className="row mb-2 article">
+          <div className="row mb-2 article-row">
             {filteredArticles.map((article, index) => {
               if (![0, 1, 2].includes(index)) {
                 return <Article key={index} article={article} />;

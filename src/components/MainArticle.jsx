@@ -25,7 +25,7 @@ function MainArticle({ articles }) {
         <div className="row align-items-center main-container">
           <div className="col-lg-6">
             <h1 className="display-4 fst-italic">{articles[currentIndex].title}</h1>
-            <p className="lead my-3">{articles[currentIndex].body}</p>
+            <p className="lead my-3">{articles[currentIndex].previewText}</p>
             <p className="lead mb-0">
               <a href="#" className={`fw-bold ${isDark ? "text-info" : "text-body-emphasis"}`}>
                 Continue reading...
@@ -37,7 +37,7 @@ function MainArticle({ articles }) {
               isDark ? "bg-light text-dark" : "bg-dark text-white"
             }`}
           >
-            <p className="image-text">AI vs Humans</p>
+            <p className="image-text">{articles[currentIndex].keywords}</p>
           </div>
         </div>
       </div>

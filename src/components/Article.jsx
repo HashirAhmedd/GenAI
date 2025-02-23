@@ -7,9 +7,9 @@ function Article({ article }) {
   if (!article) return null;
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-6 ">
       <div
-        className={`row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative ${
+        className={` article row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative  ${
           isDark ? "bg-dark dark border-secondary" : "bg-white"
         }`}
       >
@@ -22,11 +22,11 @@ function Article({ article }) {
             AI
           </strong>
           <h3 className="mb-0">
-            {article.title.split(" ").slice(0, 5).join(" ")}
+            {article.title}
           </h3>
-          <div className="mb-1">Feb 1</div>
+          <div className="mb-1">{article.Time.slice(0,10)}</div>
           <p className="card-text mb-auto">
-            {article.body.split(" ").slice(0, 10).join(" ")}
+            {article.previewText}
           </p>
           <a
             href="#"
@@ -40,7 +40,7 @@ function Article({ article }) {
 
         <div className={`col-auto image-container ${isDark ? "bg-light text-dark" : "bg-dark text-white"}`}>
           <p className={`image-text`}>
-            AI vs Humans
+            {article.keywords}
           </p>
         </div>
       </div>
