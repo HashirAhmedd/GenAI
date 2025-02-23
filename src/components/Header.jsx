@@ -76,12 +76,6 @@ function Header({setSearch}) {
                 aria-label="Search"
                 onChange={(e)=> setSearch(e.target.value)}
               />
-              <button
-                type="button"
-                className={`btn btn-${isDark ? "light" : "dark"}`}
-              >
-                Search
-              </button>
             </div>
             <button
               className={`btn btn-${isDark ? "light" : "dark"} ms-2`}

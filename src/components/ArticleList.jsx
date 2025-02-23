@@ -9,12 +9,14 @@ import { SearchContext } from "../App";
 
 async function fetchArticles() {
   const response = await fetch("https://dummyjson.com/posts");
+  // const response = await fetch("https://gen-ai-backend-nine.vercel.app/articles/");
   const { posts: articlesData } = await response.json();
+  // console.log(articlesData)
   return articlesData;
 }
 
 function ArticleList() {
-  const {search} =  useContext(SearchContext)
+  const { search } = useContext(SearchContext);
   const [fetching, setFetching] = useState(false);
   const dispatch = useDispatch();
 
@@ -29,26 +31,35 @@ function ArticleList() {
   }, [dispatch]);
 
   const articles = useSelector((store) => store.article);
-    const filteredArticles = search
+
+  const filteredArticles = search
     ? articles.filter((article) =>
         article.title.toLowerCase().includes(search.toLowerCase())
       )
     : articles;
-
   return (
     <>
       {fetching && <Spinner />}
       {!fetching && filteredArticles.length == 0 && <WelcomeMessage />}
 
-      <MainArticle article={filteredArticles[0]} />
-      <div className="row mb-2 article">
-        
-        {filteredArticles.map((article, index) => {
-          if(index !== 0){
-            return <Article key={index} article={article} />;
-          }
-        })}
-      </div>
+      {search ? ( <div className="row mb-2 article">
+       { filteredArticles.map((article, index) => {
+        return  <Article key={index} article={article} />
+         })}
+        </div>
+      ) : (
+        <>
+          <MainArticle articles={filteredArticles.slice(0, 3)} />
+          <div className="row mb-2 article">
+            {filteredArticles.map((article, index) => {
+              if (![0, 1, 2].includes(index)) {
+                return <Article key={index} article={article} />;
+              }
+            })}
+        </div>
+        </>
+      )}
+
     </>
   );
 }

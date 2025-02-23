@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 html {
   height: 100%;
@@ -26,14 +27,32 @@ html {
 }
 
 .image-container {
-  width: 200px;
-  height: 250px;
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden; 
   background-color: #f0f0f0;
   border-radius: 8px;
+}
+.image-text{
+text-align: center;
+  font-family: "Dancing Script", serif;
+  font-optical-sizing: auto;
+  font-size: 2em;
+  font-weight: 900;
+  font-style: normal;
+  padding: 1em;
+}
+
+.main-keywords{
+  height: 20em;
+  width:20em
+}
+
+.main-container{
+  display: flex;
+  justify-content: space-around;
 }
 
 .fixed-image {
@@ -53,6 +72,23 @@ html {
   background-color: #0e0e0e !important;
 }
 
+.fade-slide {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: fadeSlide 1s ease-in-out forwards;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 
 /* ################## MEDIA QUERIES ################## */
 
@@ -64,6 +100,10 @@ html {
     margin-left: 10%;
     width: 80%;
   }
+  .image-container{
+    width: 95%;
+    margin: 3%;
+  }
 }
 
 @media (min-width: 221px) and (max-width: 369px) {
@@ -73,6 +113,10 @@ html {
   .main-article {
     margin-left: 10%;
     width: 80%;
+  }
+  .image-container{
+    width: 95%;
+    margin: 3%;
   }
 }
 
@@ -84,10 +128,27 @@ html {
     margin-left: 10%;
     width: 80%;
   }
+  .image-container{
+    width: 95%;
+    margin: 3%;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 766px) {
   body {
     margin-top: 12%;
+  }
+  .image-container{
+    width: 95%;
+    margin: 3%;
+  }
+}
+@media (min-width: 767px) and (max-width: 1046px) {
+  body {
+    margin-top: 12%;
+  }
+  .image-container{
+    width: 95%;
+    margin: 3%;
   }
 }
