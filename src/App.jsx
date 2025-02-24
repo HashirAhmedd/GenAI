@@ -14,8 +14,8 @@ function App() {
     <>
     <SearchContext.Provider value={{search, setSearch}}>
       <div
-        className={`${
-          theme === "dark" ? "bg-dark dark text-light" : "bg-light text-dark"
+        className={` ${
+          theme === "dark" ? "bg-dark dark text-light home" : "bg-light text-dark"
         }`}
         style={{ minHeight: "100vh" }}
       >

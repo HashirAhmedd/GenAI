@@ -39,7 +39,7 @@ function Header({setSearch}) {
             <li>
               <a
                 href="#"
-                className={`nav-link px-2 link-${isDark ? "light" : "dark"}`}
+                className={`nav-link fs-5 px-2 link-${isDark ? "light" : "dark"}`}
               >
                 Articles
               </a>
@@ -47,7 +47,7 @@ function Header({setSearch}) {
             <li>
               <a
                 href="#"
-                className={`nav-link px-2 link-${
+                className={`nav-link fs-5 px-2 link-${
                   isDark ? "light" : "secondary"
                 }`}
               >
@@ -57,7 +57,7 @@ function Header({setSearch}) {
             <li>
               <a
                 href="#"
-                className={`nav-link px-2 link-${
+                className={`nav-link fs-5 px-2 link-${
                   isDark ? "light" : "secondary"
                 }`}
               >

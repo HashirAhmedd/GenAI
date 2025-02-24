@@ -41,7 +41,7 @@ function ArticleList() {
       {fetching && <Spinner />}
       {!fetching && filteredArticles.length == 0 && <WelcomeMessage />}
 
-      {search ? ( <div className="row mb-2 article">
+      {search ? ( <div className="row m-4 article">
        { filteredArticles.map((article, index) => {
         return  <Article key={index} article={article} />
          })}

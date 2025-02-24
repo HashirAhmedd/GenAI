@@ -24,10 +24,10 @@ function MainArticle({ articles }) {
       <div key={articles[currentIndex].title} className="fade-slide">
         <div className="row align-items-center main-container">
           <div className="col-lg-6">
-            <h1 className="display-4 fst-italic">{articles[currentIndex].title}</h1>
+            <h1 className="display-4 fst-italic">{articles[currentIndex].title.split(" ").slice(0,3).join(" ")}...</h1>
             <p className="lead my-3">{articles[currentIndex].previewText}</p>
             <p className="lead mb-0">
-              <a href="#" className={`fw-bold ${isDark ? "text-info" : "text-body-emphasis"}`}>
+              <a href="#" className={`fw-bold  text-decoration-none ${isDark ? "text-info" : "text-body-emphasis"}`}>
                 Continue reading...
               </a>
             </p>
