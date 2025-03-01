@@ -14,13 +14,15 @@ function App() {
     <>
     <SearchContext.Provider value={{search, setSearch}}>
       <div
-        className={` ${
-          theme === "dark" ? "bg-dark dark text-light home" : "bg-light text-dark"
+        className={`home ${
+          theme === "dark" ? "bg-dark dark text-light " : "bg-light text-dark home-light"
         }`}
         style={{ minHeight: "100vh" }}
       >
         <Header setSearch={setSearch} />
+        <div className="outlet-content">
         <Outlet search={search} />
+        </div>
         <Footer />
       </div>
       </SearchContext.Provider>

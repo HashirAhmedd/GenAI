@@ -15,7 +15,7 @@ function Header({setSearch}) {
     <>
       <div
         className={`header fixed-top ${
-          isDark ? "dark-shadow dark" : "light-shadow bg-white"
+          isDark ? "dark-bg " : "light-shadow light-bg"
         }`}
       >
         <header className="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">

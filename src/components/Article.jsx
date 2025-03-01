@@ -9,8 +9,8 @@ function Article({ article }) {
   return (
     <div className="col-md-6 ">
       <div
-        className={` article row g-0 border rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative  ${
-          isDark ? "bg-dark dark border-secondary" : "bg-white"
+        className={` article row g-0  rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative  ${
+          isDark ? "dark-bg " : "light-bg rounded"
         }`}
       >
         <div className="col p-4 d-flex flex-column position-static">

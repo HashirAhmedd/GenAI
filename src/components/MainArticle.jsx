@@ -10,15 +10,15 @@ function MainArticle({ articles }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % articles.length);
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [articles.length]);
 
-  if (articles.length === 0) return null;
+  if (articles.length === 0 || !articles) return null;
   return (
     <div
-      className={`p-4 p-md-5 mb-4 mt-5 rounded border main-article container ${
-        isDark ? "bg-dark dark border-secondary" : "bg-white"
+      className={`p-4 p-md-5 mb-4 mt-5 rounded main-article container ${
+        isDark ? "dark-bg" : "light-bg rounded "
       }`}
     >
       <div key={articles[currentIndex].title} className="fade-slide">

@@ -5,11 +5,9 @@ function Footer() {
   const isDark = theme === "dark";
 
   return (
-    <div className="border-top">
+    <div className={`${isDark? "dark-bg" : "border-top light-bg"}`}>
       <footer
-        className={`d-flex flex-wrap justify-content-between align-items-center py-3 my-4 container ${
-          isDark ? "border-secondary" : ""
-        }`}
+        className={`d-flex flex-wrap justify-content-between align-items-center py-3 my-4 container`}
       >
         <div className="col-md-3 mb-2 mb-md-0 logo-container">
           <a
