@@ -27,13 +27,13 @@ function Header({setSearch}) {
               } text-decoration-none`}
             >
               <img
-                src={`./${isDark? 'LightGenAi.svg' : 'DarkGenAi.svg'}`}
+                src={`/${isDark? 'LightGenAi.svg' : 'DarkGenAi.svg'}`}
                 alt="Logo"
                 width="50"
                 height="52"
               />
             </a>
-            <span className="logo">GenAi</span>
+            <span className="logo">GenAi Pro</span>
           </div>
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li>

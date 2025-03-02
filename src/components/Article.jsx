@@ -1,16 +1,17 @@
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 function Article({ article }) {
   const theme = useSelector((state) => state.theme);
   const isDark = theme === "dark";
 
-  if (!article) return null;
+  if (!article || typeof article !== "object") return null;
 
   return (
-    <div className="col-md-6 ">
+    <div className="article">
       <div
-        className={` article row g-0  rounded overflow-hidden flex-md-row mb-4 h-md-250 position-relative  ${
-          isDark ? "dark-bg " : "light-bg rounded"
+        className={`row g-0 rounded overflow-hidden position-relative ${
+          isDark ? "dark-bg" : "light-bg rounded"
         }`}
       >
         <div className="col p-4 d-flex flex-column position-static">
@@ -21,27 +22,24 @@ function Article({ article }) {
           >
             AI
           </strong>
-          <h3 className="mb-0">
+          <h3 className={`mb-0 ${isDark ? "" : "title-light"} `}>
             {article.title.split(" ").slice(0, 4).join(" ")}...
           </h3>
           <div className="mb-1">{article.Time.slice(0, 10)}</div>
           <p className="card-text prevText">
             {article.previewText.split(" ").slice(0, 18).join(" ")}...
           </p>
-          <a
-            href="#"
-            className={`icon-link gap-1 icon-link-hover text-decoration-none`}
-          >
-            Continue reading
-          </a>
+          <NavLink to={`/Articles/${article._id}`}>
+            <button className="btn text-primary">Continue Reading</button>
+          </NavLink>
         </div>
 
         <div
-          className={`col-auto  image-container ${
+          className={`col-auto image-container ${
             isDark ? "bg-light text-dark" : "bg-dark text-white"
           }`}
         >
-          <p className={`image-text`}>
+          <p className="image-text">
             {article.keywords.split(" ").slice(0, 5).join(" ")}...
           </p>
         </div>

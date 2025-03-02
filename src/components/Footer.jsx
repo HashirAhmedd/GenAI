@@ -15,30 +15,30 @@ function Footer() {
             className={`link-${isDark ? "light" : "dark"} text-decoration-none`}
           >
             <img
-              src={`./${isDark ? "LightGenAi.svg" : "DarkGenAi.svg"}`}
+              src={`/${isDark ? "LightGenAi.svg" : "DarkGenAi.svg"}`}
               alt="Logo"
               width="50"
               height="52"
             />
           </a>
-          <span className="logo">GenAi© 2025</span>
+          <span className="logo">GenAi Pro© 2025</span>
         </div>
 
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
           <li className="ms-3">
             <a href="/" className={`link-${isDark ? "light" : "dark"}`}>
-              <img src="./facebook.svg" alt="Logo" width="25" height="25" />
+              <img src="/facebook.svg" alt="Logo" width="25" height="25" />
             </a>
           </li>
           <li className="ms-3">
             <a href="/" className={`link-${isDark ? "light" : "dark"}`}>
-              <img src="./instagram.svg" alt="Logo" width="25" height="25" />
+              <img src="/instagram.svg" alt="Logo" width="25" height="25" />
             </a>
           </li>
           <li className="ms-3">
             <a href="/" className={`link-${isDark ? "light" : "dark"}`}>
               <img
-                src={`./${isDark ? "DarkTwitter" : "twitter"}.svg`}
+                src={`/${isDark ? "DarkTwitter" : "twitter"}.svg`}
                 alt="Logo"
                 width="25"
                 height="25"
