@@ -37,7 +37,7 @@ function FullArticle() {
         {article.content.split(" ").slice(0, 120).join(" ")}
       </p>
       <div
-        className={`col-auto image-container ${
+        className={`col-auto full-img-cont image-container ${
           isDark ? "bg-light text-dark" : "bg-dark text-white"
         }`}
       >
