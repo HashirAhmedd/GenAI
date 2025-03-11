@@ -39,6 +39,7 @@ html {
   width: 100%;
   margin-bottom: 20px;
   padding: 1em;
+  
 }
 
 .title-light {
@@ -46,7 +47,7 @@ html {
 }
 
 .article:hover {
-  box-shadow: 1px 1px 20px rgba(131, 129, 129, 0.123);
+  /* box-shadow: 1px 1px 20px rgba(131, 129, 129, 0.1); */
   transform: translateY(-5px);
   transition: ease-in-out 0.3s;
 }

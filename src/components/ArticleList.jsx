@@ -29,6 +29,7 @@ function ArticleList() {
       setFetching(true);
       const loadArticles = async () => {
         const articles = await fetchArticles();
+        articles.sort((a, b) => new Date(b.Time) - new Date(a.Time));
         if (articles.length > 0) {
           dispatch(ArticleActions.AddArticle(articles));
         } else if (retryCount < maxRetries) {
@@ -62,17 +63,21 @@ function ArticleList() {
             <WelcomeMessage />
           )}
         </div>
-      ) : filteredArticles && filteredArticles?.length > 0 && <>
-          <MainArticle articles={filteredArticles.slice(0, 3)} />
-          <div className="container article-row">
-            {filteredArticles.map((article, index) => {
-              if (![0, 1, 2].includes(index)) {
-                return <Article key={index} article={article} />;
-              }
-            })}
-          </div>
-        </>
-      }
+      ) : (
+        filteredArticles &&
+        filteredArticles?.length > 0 && (
+          <>
+            <MainArticle articles={filteredArticles.slice(0, 3)} />
+            <div className="container article-row">
+              {filteredArticles.map((article, index) => {
+                if (![0, 1, 2].includes(index)) {
+                  return <Article key={index} article={article} />;
+                }
+              })}
+            </div>
+          </>
+        )
+      )}
     </>
   );
 }
