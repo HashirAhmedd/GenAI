@@ -1,59 +1,79 @@
-import { useEffect } from "react";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function MainArticle({ articles }) {
   const theme = useSelector((state) => state.theme);
   const isDark = theme === "dark";
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % articles.length);
-    },5000);
-    return () => clearInterval(interval);
-  }, [articles.length]);
 
   if (articles.length === 0 || !articles) return null;
-  
+
+  const mainArticle = articles[0];
+  const sideArticles = articles.slice(1, 5);
+
   return (
     <div
       className={`p-4 p-md-5 mb-4 mt-5 rounded main-article container ${
         isDark ? "dark-bg" : "light-bg rounded"
       }`}
     >
-      <div key={articles[currentIndex].title} className="fade-slide">
-        <div className="row align-items-center main-container">
-          <div className="col-lg-6">
-            <h1 className={`display-4 fst-italic ${isDark? "" : "title-light"}`}>{articles[currentIndex].title.split(" ").slice(0,3).join(" ")}...</h1>
-            <p className="lead my-3">{articles[currentIndex].previewText}</p>
-            <p className="lead mb-0">
-            <NavLink to={`/Articles/${articles[currentIndex]._id}`}>
-      <button className="btn text-primary">Continue Reading</button>
-      </NavLink>
-            </p>
-          </div>
+      <div className="row main-container">
+        {/* Left Main Article */}
+        <div className="col-md-6 main-featured-article">
+          <div className="h-100 p-4 d-flex flex-column">
+            <h1
+              className={`display-4 fst-italic mb-4 ${
+                isDark ? "" : "title-light"
+              }`}
+            >
+              {mainArticle.title}
+            </h1>
 
-          <div className={`col-auto image-container main-keywords ${
-              isDark ? "bg-light text-dark" : "bg-dark text-white"
-            }`}
-          >
-            <p className="image-text">{articles[currentIndex].keywords}</p>
+            <div
+              className={`image-container main-keywords align-self-start mb-4 ${
+                isDark ? "bg-light text-dark" : "bg-dark text-white"
+              }`}
+            >
+              <p className="image-text">
+                {mainArticle.keywords.split(" ").slice(0, 5).join(" ")}...
+              </p>
+            </div>
+
+            <p className="lead mb-4">{mainArticle.previewText}</p>
+
+            <div className="mt-auto">
+              <NavLink to={`/Articles/${mainArticle._id}`}>
+                <button className="btn btn-primary">Continue Reading</button>
+              </NavLink>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="text-center mt-3">
-        {articles.map((_, index) => (
-          <span
-            key={index}
-            className={`mx-1 d-inline-block rounded-circle ${
-              index === currentIndex ? "bg-primary" : "bg-secondary"
-            }`}
-            style={{ width: "10px", height: "10px", display: "inline-block" }}
-          ></span>
-        ))}
+        {/* Right Side Grid */}
+        <div className="col-md-6">
+          <div className="row g-3">
+            {sideArticles.map((article, index) => (
+              <div key={article._id} className="col-md-6">
+                <div
+                  className={`h-100 p-3 ${
+                    isDark ? "dark-bg" : "light-bg"
+                  } rounded`}
+                >
+                  <h4 className={isDark ? "" : "title-light"}>
+                    {article.title.split(" ").slice(0, 6).join(" ")}...
+                  </h4>
+                  <p className="mb-2">
+                    {article.previewText.split(" ").slice(0, 12).join(" ")}...
+                  </p>
+                  <NavLink to={`/Articles/${article._id}`}>
+                    <button className="btn btn-primary btn-sm">
+                      Continue Reading
+                    </button>
+                  </NavLink>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -67,10 +67,10 @@ function ArticleList() {
         filteredArticles &&
         filteredArticles?.length > 0 && (
           <>
-            <MainArticle articles={filteredArticles.slice(0, 3)} />
+            <MainArticle articles={filteredArticles.slice(0, 5)} />
             <div className="container article-row">
               {filteredArticles.map((article, index) => {
-                if (![0, 1, 2].includes(index)) {
+                if (![0, 1, 2, 3, 4].includes(index)) {
                   return <Article key={index} article={article} />;
                 }
               })}

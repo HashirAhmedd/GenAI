@@ -30,7 +30,7 @@ function Article({ article }) {
             {article.previewText.split(" ").slice(0, 18).join(" ")}...
           </p>
           <NavLink to={`/Articles/${article._id}`}>
-            <button className="btn text-primary">Continue Reading</button>
+            <button className="btn btn-primary">Continue Reading</button>
           </NavLink>
         </div>
 
