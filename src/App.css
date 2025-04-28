@@ -410,3 +410,80 @@ html {
     padding: 1rem !important;
   }
 }
+
+/* Skeleton Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-title,
+.skeleton-title-sm,
+.skeleton-keywords,
+.skeleton-line,
+.skeleton-button,
+.skeleton-button-sm {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.skeleton-title {
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.skeleton-title-sm {
+  width: 100%;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.skeleton-keywords {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+}
+
+.skeleton-text {
+  width: 100%;
+}
+
+.skeleton-line {
+  width: 100%;
+  height: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.skeleton-line:last-child {
+  width: 80%;
+}
+
+.skeleton-button {
+  width: 150px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.skeleton-button-sm {
+  width: 120px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+/* Dark mode skeleton */
+.dark .skeleton-title,
+.dark .skeleton-title-sm,
+.dark .skeleton-keywords,
+.dark .skeleton-line,
+.dark .skeleton-button,
+.dark .skeleton-button-sm {
+  background: linear-gradient(90deg, #1a1a1a 25%, #262626 50%, #1a1a1a 75%);
+  background-size: 1000px 100%;
+}

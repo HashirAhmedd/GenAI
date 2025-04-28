@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { ArticleActions } from "../store/Article";
 import Article from "./Article";
 import MainArticle from "./MainArticle";
-import Spinner from "./Spinner";
-import { SearchContext } from "../App";
+import MainArticleSkeleton from "./MainArticleSkeleton";
 import WelcomeMessage from "./WelcomeMessage";
+import { SearchContext } from "../App";
 
 async function fetchArticles() {
   const response = await fetch(
@@ -49,10 +49,9 @@ function ArticleList() {
         article.title.toLowerCase().includes(search.toLowerCase())
       )
     : articles;
+
   return (
     <>
-      {fetching && <Spinner />}
-
       {search ? (
         <div className="article-row m-4">
           {filteredArticles && filteredArticles?.length > 0 ? (
@@ -64,19 +63,25 @@ function ArticleList() {
           )}
         </div>
       ) : (
-        filteredArticles &&
-        filteredArticles?.length > 0 && (
-          <>
-            <MainArticle articles={filteredArticles.slice(0, 5)} />
-            <div className="container article-row">
-              {filteredArticles.map((article, index) => {
-                if (![0, 1, 2, 3, 4].includes(index)) {
-                  return <Article key={index} article={article} />;
-                }
-              })}
-            </div>
-          </>
-        )
+        <>
+          {fetching ? (
+            <MainArticleSkeleton />
+          ) : (
+            filteredArticles &&
+            filteredArticles?.length > 0 && (
+              <>
+                <MainArticle articles={filteredArticles.slice(0, 5)} />
+                <div className="container article-row">
+                  {filteredArticles.map((article, index) => {
+                    if (![0, 1, 2, 3, 4].includes(index)) {
+                      return <Article key={index} article={article} />;
+                    }
+                  })}
+                </div>
+              </>
+            )
+          )}
+        </>
       )}
     </>
   );
