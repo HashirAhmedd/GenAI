@@ -15,13 +15,6 @@ function Article({ article }) {
         }`}
       >
         <div className="col p-4 d-flex flex-column position-static">
-          <strong
-            className={`d-inline-block mb-2 ${
-              isDark ? "text-info" : "text-primary-emphasis"
-            }`}
-          >
-            AI
-          </strong>
           <h3 className={`mb-0 ${isDark ? "" : "title-light"} `}>
             {article.title.split(" ").slice(0, 4).join(" ")}...
           </h3>

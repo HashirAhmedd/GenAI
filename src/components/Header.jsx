@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeActions } from "../store/Theme";
 import { Moon, Sun } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
-function Header({setSearch}) {
+function Header({ setSearch }) {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme);
   const isDark = theme === "dark";
@@ -20,49 +21,51 @@ function Header({setSearch}) {
       >
         <header className="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
           <div className="col-md-3 mb-2 mb-md-0 logo-container">
-            <a
-              href="/"
+            <NavLink
+              to="/"
               className={`link-${
                 isDark ? "light" : "dark"
               } text-decoration-none`}
             >
               <img
-                src={`/${isDark? 'LightGenAi.svg' : 'DarkGenAi.svg'}`}
+                src={`/${isDark ? "LightGenAi.svg" : "DarkGenAi.svg"}`}
                 alt="Logo"
                 width="50"
                 height="52"
               />
-            </a>
-            <span className="logo">GenAi Pro</span>
+            </NavLink>
+            <span className="logo">GenAI Pro</span>
           </div>
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li>
-              <a
-                href="#"
-                className={`nav-link fs-5 px-2 link-${isDark ? "light" : "dark"}`}
+              <NavLink
+                to="/"
+                className={`nav-link fs-5 px-2 link-${
+                  isDark ? "light" : "dark"
+                }`}
               >
                 Articles
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="/tools"
                 className={`nav-link fs-5 px-2 link-${
                   isDark ? "light" : "secondary"
                 }`}
               >
                 Tools
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#"
+              <NavLink
+                to="/tutorials"
                 className={`nav-link fs-5 px-2 link-${
                   isDark ? "light" : "secondary"
                 }`}
               >
                 Tutorials
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="col-md-4 text-end d-flex gap-2 align-items-center">
@@ -74,7 +77,7 @@ function Header({setSearch}) {
                 }`}
                 placeholder="Search Article..."
                 aria-label="Search"
-                onChange={(e)=> setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <button
