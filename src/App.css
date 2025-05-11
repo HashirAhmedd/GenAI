@@ -186,7 +186,7 @@ html {
   }
   .full-article {
     width: 100%;
-    font-size: 2vh;
+    font-size: 0.8rem;
   }
   .full-article h1 {
     font-size: 3vh;
@@ -218,7 +218,7 @@ html {
   }
   .full-article {
     width: 100%;
-    font-size: 3vh;
+    font-size: 0.8rem;
   }
   .full-article h1 {
     font-size: 4vh;
@@ -249,7 +249,7 @@ html {
     grid-template-columns: 1fr;
   }
   .full-article {
-    font-size: 3vh;
+    font-size: 0.8rem;
     width: 100%;
     padding: 0;
   }
@@ -260,6 +260,7 @@ html {
   .full-article .image-container {
     width: 90%;
     font-size: 3vh;
+    padding: 30px 20px;
     margin: 5vh auto;
   }
 }
