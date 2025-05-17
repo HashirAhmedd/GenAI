@@ -40,9 +40,13 @@ function Header({ setSearch }) {
             <li>
               <NavLink
                 to="/"
-                className={`nav-link fs-5 px-2 link-${
-                  isDark ? "light" : "dark"
-                }`}
+                   className={({ isActive }) =>
+                  `nav-link fs-5 px-2 ${
+                    isActive
+                      ? "text-dark"
+                      : `text-${isDark ? "light" : "secondary"}`
+                  }`
+                }
               >
                 Articles
               </NavLink>
@@ -50,9 +54,13 @@ function Header({ setSearch }) {
             <li>
               <NavLink
                 to="/tools"
-                className={`nav-link fs-5 px-2 link-${
-                  isDark ? "light" : "secondary"
-                }`}
+                 className={({ isActive }) =>
+                  `nav-link fs-5 px-2 ${
+                    isActive
+                      ? "text-dark"
+                      : `text-${isDark ? "light" : "secondary"}`
+                  }`
+                }
               >
                 Tools
               </NavLink>
@@ -60,9 +68,13 @@ function Header({ setSearch }) {
             <li>
               <NavLink
                 to="/tutorials"
-                className={`nav-link fs-5 px-2 link-${
-                  isDark ? "light" : "secondary"
-                }`}
+                   className={({ isActive }) =>
+                  `nav-link fs-5 px-2 ${
+                    isActive
+                      ? "text-dark"
+                      : `text-${isDark ? "light" : "secondary"}`
+                  }`
+                }
               >
                 Tutorials
               </NavLink>
