@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ArticleList from "./ArticleList";
+import { Helmet } from "react-helmet-async";
 
 function FullArticle() {
   const theme = useSelector((state) => state.theme);
@@ -31,37 +32,76 @@ function FullArticle() {
   return (
     <>
       {article ? (
-        <div className="container full-article text-center mt-4">
-          <h1>{article.title}</h1>
-          <p className="content">
-            {article.content
-              .split(" ")
-              .slice(0, 120)
-              .join(" ")
-              .split("\n")
-              .map((part, index) =>
-                index === 0 ? (
-                  part
-                ) : (
-                  <>
-                    <br />
-                    {part}
-                  </>
-                )
-              )}
-          </p>
+        <>
+          <Helmet>
+            <title>{article.title} – GenAI Pro</title>
+            <meta
+              name="description"
+              content={article.previewText || article.content?.slice(0, 150)}
+            />
+            <meta
+              property="og:title"
+              content={`${article.title} – GenAI Pro`}
+            />
+            <meta
+              property="og:description"
+              content={article.previewText || article.content?.slice(0, 150)}
+            />
+            <meta
+              property="og:url"
+              content={`https://www.genai-pro.com/articles/${article._id}`}
+            />
+            <meta property="og:type" content="article" />
+            <meta
+              property="og:image"
+              content="https://www.genai-pro.com/og-image.jpg"
+            />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta
+              name="twitter:title"
+              content={`${article.title} – GenAI Pro`}
+            />
+            <meta
+              name="twitter:description"
+              content={article.previewText || article.content?.slice(0, 150)}
+            />
+            <meta
+              name="twitter:image"
+              content="https://www.genai-pro.com/og-image.jpg"
+            />
+          </Helmet>
+          <div className="container full-article text-center mt-4">
+            <h1>{article.title}</h1>
+            <p className="content">
+              {article.content
+                .split(" ")
+                .slice(0, 120)
+                .join(" ")
+                .split("\n")
+                .map((part, index) =>
+                  index === 0 ? (
+                    part
+                  ) : (
+                    <>
+                      <br />
+                      {part}
+                    </>
+                  )
+                )}
+            </p>
 
-          <div
-            className={`col-auto full-img-cont image-container ${
-              isDark ? "bg-light text-dark" : "bg-dark text-white"
-            }`}
-          >
-            <p className="image-text">{article.keywords}</p>
+            <div
+              className={`col-auto full-img-cont image-container ${
+                isDark ? "bg-light text-dark" : "bg-dark text-white"
+              }`}
+            >
+              <p className="image-text">{article.keywords}</p>
+            </div>
+            <p className="content">
+              {article.content.split(" ").slice(120).join(" ")}
+            </p>
           </div>
-          <p className="content">
-            {article.content.split(" ").slice(120).join(" ")}
-          </p>
-        </div>
+        </>
       ) : (
         <ArticleList />
       )}

@@ -6,6 +6,7 @@ import MainArticle from "./MainArticle";
 import MainArticleSkeleton from "./MainArticleSkeleton";
 import WelcomeMessage from "./WelcomeMessage";
 import { SearchContext } from "../App";
+import { Helmet } from "react-helmet-async";
 
 async function fetchArticles() {
   const response = await fetch(
@@ -95,6 +96,40 @@ function ArticleList() {
 
   return (
     <>
+        <Helmet>
+        <title>GenAI Pro – AI, ML & Tech Insights</title>
+        <meta
+          name="description"
+          content="Explore the latest insights in Artificial Intelligence, Machine Learning, and Technology. Stay updated with expert analysis and in-depth articles on AI trends and innovations."
+        />
+        <meta
+          property="og:title"
+          content="GenAI Pro – AI, ML & Tech Insights"
+        />
+        <meta
+          property="og:description"
+          content="Explore the latest insights in Artificial Intelligence, Machine Learning, and Technology."
+        />
+        <meta property="og:url" content="https://www.genai-pro.com/" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://www.genai-pro.com/og-image.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="GenAI Pro – AI, ML & Tech Insights"
+        />
+        <meta
+          name="twitter:description"
+          content="Explore the latest insights in Artificial Intelligence, Machine Learning, and Technology."
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.genai-pro.com/og-image.jpg"
+        />
+      </Helmet>
       {search ? (
         <div className="article-row m-4">
           {filteredArticles && filteredArticles?.length > 0 ? (

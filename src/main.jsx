@@ -8,6 +8,7 @@ import ArticleList from "./components/ArticleList.jsx";
 import FullArticle from "./components/FullArticle.jsx";
 import Tools from "./components/Tools.jsx";
 import Tutorials from "./components/Tutorials.jsx";
+import {HelmetProvider} from "react-helmet-async";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,9 +37,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={Store}>
+      <HelmetProvider>
       <RouterProvider router={router}>
         <App />
       </RouterProvider>
+      </HelmetProvider>
     </Provider>
   </StrictMode>
 );
