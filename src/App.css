@@ -689,3 +689,66 @@ html {
     width: 120vw !important;
   }
 }
+
+/* Make full article image responsive on all screens */
+.full-img-cont img,
+.full-article .image-container img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+  .full-article .image-container {
+    min-height: 300px;
+    height: auto;
+    width: 90% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1000px) {
+  .full-article .image-container {
+    min-height: 350px;
+    height: auto;
+    width: 80% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .full-article .image-container {
+    min-height: 200px;
+    height: auto;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 580px) and (max-width: 1000px) {
+  .main-keywords {
+    min-height: 220px;
+    height: auto;
+    width: 70% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
