@@ -98,8 +98,7 @@ function FullArticle() {
            
               {article.image_url ? (
                 <img
-                  src="https://res.cloudinary.com/dkyqmkqzd/image/upload/v1751717675/mdgbsqthzg7xbyizokjp.jpg"
-                  alt="article cover image"
+                  src={article.image_url}
                   className=""
                 />
               ) : (

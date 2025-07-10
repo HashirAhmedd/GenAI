@@ -35,7 +35,7 @@ function MainArticle({ articles }) {
             >
               {mainArticle.image_url ? (
                 <img
-                  src="https://res.cloudinary.com/dkyqmkqzd/image/upload/v1751717675/mdgbsqthzg7xbyizokjp.jpg"
+                  src={mainArticle.image_url}
                   alt="article cover image"
                   className=""
                 />
