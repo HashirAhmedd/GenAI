@@ -33,9 +33,17 @@ function MainArticle({ articles }) {
                 isDark ? "bg-light text-dark" : "bg-dark text-white"
               }`}
             >
-              <p className="image-text">
-                {mainArticle.keywords.split(" ").slice(0, 5).join(" ")}...
-              </p>
+              {mainArticle.image_url ? (
+                <img
+                  src="https://res.cloudinary.com/dkyqmkqzd/image/upload/v1751717675/mdgbsqthzg7xbyizokjp.jpg"
+                  alt="article cover image"
+                  className=""
+                />
+              ) : (
+                <p className="image-text">
+                  {mainArticle.keywords.split(" ").slice(0, 5).join(" ")}...
+                </p>
+              )}
             </div>
 
             <p className="lead mb-4">{mainArticle.previewText}</p>

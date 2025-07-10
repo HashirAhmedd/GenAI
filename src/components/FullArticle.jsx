@@ -95,8 +95,20 @@ function FullArticle() {
                 isDark ? "bg-light text-dark" : "bg-dark text-white"
               }`}
             >
-              <p className="image-text">{article.keywords}</p>
+           
+              {article.image_url ? (
+                <img
+                  src="https://res.cloudinary.com/dkyqmkqzd/image/upload/v1751717675/mdgbsqthzg7xbyizokjp.jpg"
+                  alt="article cover image"
+                  className=""
+                />
+              ) : (
+                <p className="image-text">
+                  {article.keywords.split(" ").slice(0, 5).join(" ")}...
+                </p>
+              )}
             </div>
+
             <p className="content">
               {article.content.split(" ").slice(120).join(" ")}
             </p>
