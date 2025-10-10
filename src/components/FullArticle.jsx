@@ -37,7 +37,7 @@ function FullArticle() {
             <title>{article.title} – GenAI Pro</title>
             <meta
               name="description"
-              content={article.previewText || article.content?.slice(0, 150)}
+              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
             />
             <meta
               property="og:title"
@@ -45,7 +45,7 @@ function FullArticle() {
             />
             <meta
               property="og:description"
-              content={article.previewText || article.content?.slice(0, 150)}
+              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
             />
             <meta
               property="og:url"
@@ -63,54 +63,37 @@ function FullArticle() {
             />
             <meta
               name="twitter:description"
-              content={article.previewText || article.content?.slice(0, 150)}
+              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
             />
             <meta
               name="twitter:image"
               content="https://www.genai-pro.com/og-image.jpg"
             />
           </Helmet>
+
           <div className="container full-article text-center mt-4">
             <h1>{article.title}</h1>
-            <p className="content">
-              {article.content
-                .split(" ")
-                .slice(0, 120)
-                .join(" ")
-                .split("\n")
-                .map((part, index) =>
-                  index === 0 ? (
-                    part
-                  ) : (
-                    <>
-                      <br />
-                      {part}
-                    </>
-                  )
-                )}
-            </p>
 
+            {/* ✅ Article Image Section */}
             <div
               className={`col-auto full-img-cont image-container ${
                 isDark ? "bg-light text-dark" : "bg-dark text-white"
               }`}
             >
-           
               {article.image_url ? (
-                <img
-                  src={article.image_url}
-                  className=""
-                />
+                <img src={article.image_url} alt={article.title} className="img-fluid" />
               ) : (
                 <p className="image-text">
-                  {article.keywords.split(" ").slice(0, 5).join(" ")}...
+                  {article.keywords?.split(" ").slice(0, 5).join(" ")}...
                 </p>
               )}
             </div>
 
-            <p className="content">
-              {article.content.split(" ").slice(120).join(" ")}
-            </p>
+            {/* ✅ AI-Optimized HTML Render */}
+            <div
+              className="article-html text-start mt-4"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            ></div>
           </div>
         </>
       ) : (
