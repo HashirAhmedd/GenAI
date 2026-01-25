@@ -13,6 +13,7 @@ async function fetchArticles() {
     "https://gen-ai-backend-nine.vercel.app/articles/"
   );
   const { articles } = await response.json();
+  console.log(articles)
   return articles || [];
 }
 

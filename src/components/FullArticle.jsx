@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ArticleList from "./ArticleList";
+import NewArticle from "./NewArticle";
 import { Helmet } from "react-helmet-async";
 
 function FullArticle() {
@@ -37,7 +38,11 @@ function FullArticle() {
             <title>{article.title} – GenAI Pro</title>
             <meta
               name="description"
-              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
+              content={
+                article.previewText ||
+                article.metaDescription ||
+                article.content?.slice(0, 150)
+              }
             />
             <meta
               property="og:title"
@@ -45,7 +50,11 @@ function FullArticle() {
             />
             <meta
               property="og:description"
-              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
+              content={
+                article.previewText ||
+                article.metaDescription ||
+                article.content?.slice(0, 150)
+              }
             />
             <meta
               property="og:url"
@@ -63,7 +72,11 @@ function FullArticle() {
             />
             <meta
               name="twitter:description"
-              content={article.previewText || article.metaDescription || article.content?.slice(0, 150)}
+              content={
+                article.previewText ||
+                article.metaDescription ||
+                article.content?.slice(0, 150)
+              }
             />
             <meta
               name="twitter:image"
@@ -81,7 +94,11 @@ function FullArticle() {
               }`}
             >
               {article.image_url ? (
-                <img src={article.image_url} alt={article.title} className="img-fluid" />
+                <img
+                  src={article.image_url}
+                  alt={article.title}
+                  className="img-fluid"
+                />
               ) : (
                 <p className="image-text">
                   {article.keywords?.split(" ").slice(0, 5).join(" ")}...
@@ -90,10 +107,14 @@ function FullArticle() {
             </div>
 
             {/* ✅ AI-Optimized HTML Render */}
-            <div
-              className="article-html text-start mt-4"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            ></div>
+            {"version" in article && article.version === 2 ? (
+              <NewArticle content={article.content} Time={article.Time} />
+            ) : (
+              <div
+                className="article-html text-start mt-4"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              ></div>
+            )}
           </div>
         </>
       ) : (

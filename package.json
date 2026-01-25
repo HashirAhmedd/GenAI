@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
+    "@tailwindcss/vite": "^4.1.18",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.2",
     "lucide-react": "^0.474.0",
@@ -18,7 +19,8 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
