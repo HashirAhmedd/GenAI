@@ -21,7 +21,7 @@ function Footer() {
               height="52"
             />
           </a>
-          <span className="logo">GenAI Pro© 2025</span>
+          <span className="logo">GenAI Pro© 2026</span>
         </div>
 
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">

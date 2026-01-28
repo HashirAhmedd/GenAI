@@ -17,6 +17,8 @@ function FullArticle() {
     }
   }
 
+  const isNewVersion = article && "version" in article && article.version === 2;
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const homeElement = document.querySelector(".home");
@@ -84,11 +86,11 @@ function FullArticle() {
             />
           </Helmet>
 
-          <div className="container full-article text-center mt-4">
-            <h1>{article.title}</h1>
+          <div className={` ${!isNewVersion ? "container full-article mt-4 text-center" : ""}   `}>
+           { !isNewVersion && <h1>{article.title}</h1>}
 
             {/* ✅ Article Image Section */}
-            <div
+          { !isNewVersion &&  <div
               className={`col-auto full-img-cont image-container ${
                 isDark ? "bg-light text-dark" : "bg-dark text-white"
               }`}
@@ -104,10 +106,10 @@ function FullArticle() {
                   {article.keywords?.split(" ").slice(0, 5).join(" ")}...
                 </p>
               )}
-            </div>
+            </div>}
 
             {/* ✅ AI-Optimized HTML Render */}
-            {"version" in article && article.version === 2 ? (
+            {isNewVersion ? (
               <NewArticle content={article.content} Time={article.Time} />
             ) : (
               <div

@@ -46,7 +46,7 @@ function MainArticle({ articles }) {
               )}
             </div>
 
-            <p className="lead mb-4">{mainArticle.previewText}</p>
+            <p className="lead mb-4">{mainArticle.previewText.slice(0, 300)}...</p>
 
             <div className="mt-auto">
               <NavLink to={`/Articles/${mainArticle._id}`}>
