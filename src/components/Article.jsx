@@ -22,7 +22,7 @@ function Article({ article }) {
           <p className="card-text prevText">
             {article.previewText.split(" ").slice(0, 18).join(" ")}...
           </p>
-          <NavLink to={`/Articles/${article._id}`}>
+          <NavLink to={`/articles/${article._id}`}>
             <button className="btn btn-primary">Continue Reading</button>
           </NavLink>
         </div>
@@ -32,9 +32,17 @@ function Article({ article }) {
             isDark ? "bg-light text-dark" : "bg-dark text-white"
           }`}
         >
-        {  article.image_url? <img src={article.image_url} alt="graphics card image" className="image-text" /> : <p className="image-text">
-            {article.keywords.split(" ").slice(0, 5).join(" ")}...
-          </p> }
+          {article.image_url ? (
+            <img
+              src={article.image_url}
+              alt="graphics card image"
+              className="image-text"
+            />
+          ) : (
+            <p className="image-text">
+              {article.keywords.split(" ").slice(0, 5).join(" ")}...
+            </p>
+          )}
         </div>
       </div>
     </div>

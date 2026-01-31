@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useContext, useEffect, useState } from "react";
-import { ArticleActions } from "../store/Article";
+import { useContext, useEffect, useState, useCallback, useRef } from "react";
 import Article from "./Article";
 import MainArticle from "./MainArticle";
 import MainArticleSkeleton from "./MainArticleSkeleton";
@@ -8,59 +6,130 @@ import WelcomeMessage from "./WelcomeMessage";
 import { SearchContext } from "../App";
 import { Helmet } from "react-helmet-async";
 
-async function fetchArticles() {
-  const response = await fetch(
-    "https://gen-ai-backend-nine.vercel.app/articles/"
-  );
-  const { articles } = await response.json();
-  return articles || [];
+const API_BASE_URL = "https://gen-ai-backend-nine.vercel.app/articles";
+
+// Fetch articles with range parameter
+async function fetchArticles(start, end) {
+  const response = await fetch(`${API_BASE_URL}?range=${start}-${end}`);
+  const data = await response.json();
+  return {
+    articles: data.articles || [],
+    totalArticles: data.totalArticles || 0,
+  };
 }
 
 function ArticleList() {
   const { search } = useContext(SearchContext);
   const [fetching, setFetching] = useState(false);
-  const [retryCount, setRetryCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage, setArticlesPerPage] = useState(15);
-  const maxRetries = 3;
-  const dispatch = useDispatch();
+  const [currentArticles, setCurrentArticles] = useState([]);
+  const [featuredArticles, setFeaturedArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(0);
+  const [error, setError] = useState(null);
 
-  const articles = useSelector((store) => store.article);
+  // Cache for already fetched pages
+  const articlesCache = useRef(new Map());
+  const featuredLoaded = useRef(false);
 
-  useEffect(() => {
-    if (articles.length == 0) {
-      setFetching(true);
-      const loadArticles = async () => {
-        const articles = await fetchArticles();
-        articles.sort((a, b) => new Date(b.Time) - new Date(a.Time));
-        if (articles.length > 0) {
-          dispatch(ArticleActions.AddArticle(articles));
-        } else if (retryCount < maxRetries) {
-          setRetryCount(retryCount + 1);
-        }
-        setFetching(false);
-      };
-      loadArticles();
-      if (articles.length === 0 && retryCount <= maxRetries) {
-        loadArticles();
-      }
-    }
-  }, [articles.length]);
+  // Number of featured articles shown in MainArticle component
+  const FEATURED_COUNT = 5;
 
-  const filteredArticles = search
-    ? articles.filter((article) =>
-        article.title.toLowerCase().includes(search.toLowerCase())
-      )
-    : articles;
-
-  // Calculate pagination
-  const indexOfLastArticle = currentPage * articlesPerPage;
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = filteredArticles.slice(
-    indexOfFirstArticle,
-    indexOfLastArticle
+  // Calculate total pages (excluding featured articles from pagination)
+  const totalPages = Math.ceil(
+    (totalArticles - FEATURED_COUNT) / articlesPerPage,
   );
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+
+  // Generate cache key for a page
+  const getCacheKey = useCallback((page, perPage) => `${page}-${perPage}`, []);
+
+  // Load featured articles (first 5) - only once
+  const loadFeaturedArticles = useCallback(async () => {
+    if (featuredLoaded.current) return;
+
+    setFetching(true);
+    try {
+      const { articles, totalArticles: total } = await fetchArticles(
+        1,
+        FEATURED_COUNT,
+      );
+      setFeaturedArticles(articles);
+      setTotalArticles(total);
+      featuredLoaded.current = true;
+    } catch (err) {
+      console.error("Error loading featured articles:", err);
+      setError("Failed to load featured articles");
+    } finally {
+      setFetching(false);
+    }
+  }, []);
+
+  // Load articles for current page
+  const loadPageArticles = useCallback(
+    async (page, perPage) => {
+      const cacheKey = getCacheKey(page, perPage);
+
+      // Check cache first
+      if (articlesCache.current.has(cacheKey)) {
+        setCurrentArticles(articlesCache.current.get(cacheKey));
+        return;
+      }
+
+      setFetching(true);
+      setError(null);
+
+      try {
+        // Calculate range: skip featured articles (first 5) for page calculations
+        // Page 1: articles 6-20 (if perPage=15), Page 2: articles 21-35, etc.
+        const start = FEATURED_COUNT + 1 + (page - 1) * perPage;
+        const end = start + perPage - 1;
+
+        const { articles, totalArticles: total } = await fetchArticles(
+          start,
+          end,
+        );
+
+        // Update total if changed
+        if (total && total !== totalArticles) {
+          setTotalArticles(total);
+        }
+
+        // Cache the results
+        articlesCache.current.set(cacheKey, articles);
+        setCurrentArticles(articles);
+      } catch (err) {
+        console.error("Error loading articles:", err);
+        setError("Failed to load articles. Please try again.");
+      } finally {
+        setFetching(false);
+      }
+    },
+    [getCacheKey, totalArticles],
+  );
+
+  // Initial load - featured articles
+  useEffect(() => {
+    loadFeaturedArticles();
+  }, [loadFeaturedArticles]);
+
+  // Load articles when page or articlesPerPage changes
+  useEffect(() => {
+    if (!search && featuredLoaded.current) {
+      loadPageArticles(currentPage, articlesPerPage);
+    }
+  }, [currentPage, articlesPerPage, loadPageArticles, search]);
+
+  // Clear cache when articlesPerPage changes
+  useEffect(() => {
+    articlesCache.current.clear();
+  }, [articlesPerPage]);
+
+  // Filter articles locally when searching (only searches currently loaded articles)
+  const displayArticles = search
+    ? [...featuredArticles, ...currentArticles].filter((article) =>
+        article.title.toLowerCase().includes(search.toLowerCase()),
+      )
+    : currentArticles;
 
   // Handle page change
   const handlePageChange = (pageNumber) => {
@@ -96,7 +165,7 @@ function ArticleList() {
 
   return (
     <>
-        <Helmet>
+      <Helmet>
         <title>GenAI Pro – AI, ML & Tech Insights</title>
         <meta
           name="description"
@@ -132,24 +201,36 @@ function ArticleList() {
       </Helmet>
       {search ? (
         <div className="article-row m-4">
-          {filteredArticles && filteredArticles?.length > 0 ? (
-            filteredArticles.map((article, index) => {
-              return <Article key={index} article={article} />;
-            })
+          {displayArticles && displayArticles.length > 0 ? (
+            displayArticles.map((article, index) => (
+              <Article key={article._id || index} article={article} />
+            ))
           ) : (
             <WelcomeMessage />
           )}
         </div>
       ) : (
         <>
-          {fetching ? (
+          {fetching && featuredArticles.length === 0 ? (
             <MainArticleSkeleton />
           ) : (
-            filteredArticles &&
-            filteredArticles?.length > 0 && (
+            featuredArticles.length > 0 && (
               <>
-                <MainArticle articles={filteredArticles.slice(0, 5)} />
+                <MainArticle articles={featuredArticles} />
                 <div className="container">
+                  {error && (
+                    <div className="alert alert-danger" role="alert">
+                      {error}
+                      <button
+                        className="btn btn-sm btn-outline-danger ms-2"
+                        onClick={() =>
+                          loadPageArticles(currentPage, articlesPerPage)
+                        }
+                      >
+                        Retry
+                      </button>
+                    </div>
+                  )}
                   <div className="row mb-4">
                     <div className="col-12 col-md-6 mb-3 mb-md-0">
                       <div className="d-flex align-items-center">
@@ -172,17 +253,23 @@ function ArticleList() {
                     <div className="col-12 col-md-6">
                       <div className="d-flex justify-content-md-end align-items-center">
                         <span className="me-2">
-                          Page {currentPage} of {totalPages}
+                          Page {currentPage} of {totalPages || 1}
                         </span>
                       </div>
                     </div>
                   </div>
                   <div className="article-row">
-                    {currentArticles.map((article, index) => {
-                      if (![0, 1, 2, 3, 4].includes(index)) {
-                        return <Article key={index} article={article} />;
-                      }
-                    })}
+                    {fetching ? (
+                      <div className="text-center w-100 py-4">
+                        <div className="spinner-border" role="status">
+                          <span className="visually-hidden">Loading...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      currentArticles.map((article, index) => (
+                        <Article key={article._id || index} article={article} />
+                      ))
+                    )}
                   </div>
                   {totalPages > 1 && (
                     <nav aria-label="Page navigation" className="mt-4">
